@@ -1,0 +1,104 @@
+Slide-Mov.js
+==
+Author : Yugeta.Koji
+Date   : 2019.10.09
+
+# specificate
+  - file-type 
+    sound : mp3
+    image : jpeg,png,svg
+    text
+  - animation
+    zoom in,out
+    pan holizontal,vertical
+    fade in,out
+  - time
+    bgm-conform
+
+# flow
+  1. 
+
+# howto
+  1. set : HTML-tag
+  2. set : SCRIPT-tag & instance
+  3. set : Options
+
+# options
+  var slide_mov = $$slide_mov({
+
+    // HTML内の各エレメント
+    target    : {
+      base    : "#movie_base",
+      time    : "#movie_time",
+      seek    : "#movie_seek",
+      volume  : "#movie_volume"
+    },
+
+    // コントロールボタンの画像（デフォルトの場合は割愛）
+    control_image : {
+      play    : "img/play.svg",
+      pause   : "img/pause.svg"
+    },
+
+    // スライド動画のシステムチェック感覚（小さくすると精度があがるがCPU不可が高くなる）
+    intervalTime : 250,
+
+    contents : {
+      // mp3サウンドファイル（複数登録する場合は記述順番に再生される）
+      sounds : [
+        {"file" : "%ファイルの置いてあるパス" , "maxTime":"再生時間（登録しない場合はファイルの再生時間になる）"}
+      ],
+      images : [
+        {"id":"登録しない場合は順番の値で登録される※0スタート"  , "group":"%複数の画像でグルーピングを行う際の任意タグ" , "file":"%ファイルの置いてあるパス"}
+      ],
+      texts  : [],
+
+      animations : [
+        {"in":%表示開始時間（秒）   , "out":%表示終了時間（秒）   , "type":"%動作タイプ（以下参照）" , "target_id":"%表示対象の画像を指定" , "target_group":"%表示対象のグループを指定"}
+      ],
+      animation_set : []
+    }
+	});
+  【備考】
+  - ファイルパスは、絶対パス、相対パス、URLのどれでも可能
+  - 
+  - 動作タイプ：
+    * zi : ズームイン
+    * zo : ズームアウト
+    * fi : フェイドイン
+    * fo : フェイドアウト
+    * 
+
+
+# program
+  - sounds
+    this.options.current_sound_id = %id%
+    this.options.contents_sounds[...]
+    this.options.contents_sounds[%id%].context
+    this.options.contents_sounds[%id%].maxTime
+    this.options.contents_sounds[%id%].source
+    this.options.contents_sounds[%id%].buffer
+
+  - images
+    this.options.contents_images[]
+
+
+
+# reference
+
+
+
+# music-download-site
+  - sampleのmp3データは、以下からDLしています。
+    https://dova-s.jp/
+
+  - sampleの画像データは、以下からDLしています。
+    https://pixabay.com/ja/
+
+  - icon(favicon)データは、以下からDLしています。
+    https://www.flaticon.com/
+
+
+# causion
+  - 複数のsoundを再生する場合、soundの切り替え処理がintervalの感覚分誤差が発生する場合があるので、切り替えsound数が増えた際にanimationの指定秒数とずれ込む可能性があります。（厳密な秒数指定をしたい場合はsoundを１つにまとめたデータとして使用するとズレが発生しなくなります）
+
