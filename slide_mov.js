@@ -242,10 +242,26 @@
     }
 
     // animation
-    if(typeof data.animations === "undefined"){
-      // this.set_animations(data.animations);
-      this.options.contents.animations = [];
+    if(typeof data.animations !== "undefined"){
+      for(var i=0; i<data.animations.length; i++){
+        if(typeof data.animations[i].fi === "undefined" || !data.animations[i].fi){
+          data.animations[i].fi = null;
+        }
+        if(typeof data.animations[i].fo === "undefined" || !data.animations[i].fo){
+          data.animations[i].fo = null;
+        }
+      }
     }
+    else{
+      data.animations.animations = [];
+    }
+
+    // texts
+    if(typeof data.texts !== "undefined"){
+
+    }
+
+
 
     // // animation_set
     // if(typeof data.animation_set !== "undefined"){
@@ -265,10 +281,7 @@
     //   this.load_pictures(data.pictures);
     // }
 
-    // // texts
-    // if(typeof data.texts !== "undefined"){
-
-    // }
+    
 
     // // animation
     // if(typeof data.animation !== "undefined"){
@@ -416,17 +429,14 @@
       var __in = (typeof anim[i].in  !== "undefined") ? Number(anim[i].in)  : 0;
       var _out = (typeof anim[i].out !== "undefined") ? Number(anim[i].out) : 10000;
 
-      if(__in <= time && _out >= time){//console.log(time);console.log(anim[i]);
-        this.view_image(anim[i]);
+      if(__in <= time && _out >= time){
+        this.view_image(anim[i] , time);
         targets.push(anim[i].target);
       }
     }
     // 削除処理
-    var visibleImages = document.querySelectorAll(this.options.target.base +" "+this.options.selectors.images+" img");
-// console.log(targets);
-// console.log(visibleImages);
+    var visibleImages = document.querySelectorAll(this.options.target.base +" "+this.options.selectors.images+" .img-base");
     for(var i=0; i<visibleImages.length; i++){
-// console.log(JSON.stringify(targets)+"/"+visibleImages[i].getAttribute("data-id"));
       var id = Number(visibleImages[i].getAttribute("data-id"));
       if(targets.indexOf(id) === -1){
         visibleImages[i].parentNode.removeChild(visibleImages[i]);
@@ -434,18 +444,46 @@
     }
   };
 
-  $$.prototype.view_image = function(data){
+  $$.prototype.view_image = function(data , time){
     if(!data || !data.target){return}
 
     var img_area = document.querySelector(this.options.target.base +" "+this.options.selectors.images);
     if(!img_area){return}
-    // 表示済みチェック
-    if(img_area.querySelector("img[data-id='"+data.target+"']")){return;}
-    if(typeof this.options.contents_images[data.target] === "undefined"){return}
-    var img = this.options.contents_images[data.target];
-    img_area.appendChild(img);
-    // 削除予定
 
+    // データ存在確認(imgが作られているか)
+    if(typeof this.options.contents_images[data.target] === "undefined"){return}
+
+    // Fade-out
+    var img_elm = img_area.querySelector("img[data-id='"+data.target+"']");
+    if(img_elm){
+      // fade-out (* - this.options.intervalTime)
+      if(data.fo && (data.out - data.fo) < time){
+        img_elm.style.setProperty("animation" , "anim-fo "+data.fo+"s linear forwards" , "");
+      }
+    }
+    // Fade-in
+    else{
+      var img = this.options.contents_images[data.target];
+      var img_base = document.createElement("div");
+      img_base.className = "img-base";
+      img_base.setAttribute("data-id",img.getAttribute("data-id"));
+      img_base.setAttribute("data-group",img.getAttribute("data-group"));
+      // fade-in
+      if(data.fi){
+        img.style.setProperty("animation" , "anim-fi "+data.fi+"s linear forwards" , "");
+      }
+      img_base.appendChild(img);
+      img_area.appendChild(img_base);
+
+      // anim-mode-set
+      this.setAnimationMode(img_base , data.mode , (data.out - data.in));
+    }
+  };
+
+  // init-setting : animation-mode
+  $$.prototype.setAnimationMode = function(elm , mode , time){
+    if(!elm || !mode || !time){return}
+    elm.style.setProperty("animation" , "anim-"+ mode +" "+ time +"s linear forwards" , "");
   };
 
 
@@ -461,10 +499,6 @@
       target.setAttribute("data-play","0");
       this.stopSound();
       clearInterval(this.options.animFlg);
-      // var pauseButton = target.querySelector(".slide_mov-pause");
-      // if(pauseButton){
-      //   setTimeout((function(pauseButton){pauseButton.setAttribute("data-fadeout" , "0")}).bind(this,pauseButton) , 1000);
-      // }
     }
     // pause->play
     else{
@@ -486,7 +520,7 @@
     var base = document.querySelector(this.options.target.base);
     var pauseButton = base.querySelector(".slide_mov-pause");
     if(pauseButton){
-      setTimeout((function(pauseButton){pauseButton.setAttribute("data-fadeout" , "1")}).bind(this,pauseButton) , 1000);
+      setTimeout((function(pauseButton){pauseButton.setAttribute("data-fadeout" , "1")}).bind(this,pauseButton) , 300);
     }
   };
 
