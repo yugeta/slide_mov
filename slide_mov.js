@@ -101,10 +101,9 @@
       sounds : [],
       images : [],
       texts  : [],
-
-      animations : [],
-      animation_set : []
     },
+    animations : [],
+    animation_set : [],
 
     // contents_animations : [],
     // animation_val : ["",
@@ -164,7 +163,14 @@
 
     // 設定データをサーバーから読み込み
     if(typeof this.options.contents !== "undefined"){
-      this.load_contents_set(this.options.contents);
+      this.set_contents(this.options.contents);
+    }
+    // animationセット
+    if(typeof this.options.animations !== "undefined"){
+      this.set_animations();
+    }
+    else{
+      console.log("Error ! : Not animations setting.");
     }
     
 
@@ -219,7 +225,7 @@
   // Contents-load
 
   // 設定データ(options)から、コンテンツデータの読み込み(BGM,pictures(wall,other...),texts,timeline)のキャッシュデータを作成する
-  $$.prototype.load_contents_set = function(data){
+  $$.prototype.set_contents = function(data){
     // bgm
     if(typeof data.sounds !== "undefined"){
       for(var i=0; i<data.sounds.length; i++){
@@ -239,21 +245,6 @@
         data.images[i].id   = (typeof data.images[i].id !== "undefined") ? data.images[i].id : i;
         this.options.contents_loadFiles.push(data.images[i]);
       }
-    }
-
-    // animation
-    if(typeof data.animations !== "undefined"){
-      for(var i=0; i<data.animations.length; i++){
-        if(typeof data.animations[i].fi === "undefined" || !data.animations[i].fi){
-          data.animations[i].fi = 0;
-        }
-        if(typeof data.animations[i].fo === "undefined" || !data.animations[i].fo){
-          data.animations[i].fo = 0;
-        }
-      }
-    }
-    else{
-      data.animations.animations = [];
     }
 
     // texts
@@ -305,6 +296,24 @@
     }
 
   };
+
+  $$.prototype.set_animations = function(data){
+    
+    // animation
+    if(typeof this.options.animations !== "undefined"){
+      for(var i=0; i<this.options.animations.length; i++){
+        if(typeof this.options.animations[i].fi === "undefined" || !this.options.animations[i].fi){
+          this.options.animations[i].fi = 0;
+        }
+        if(typeof this.options.animations[i].fo === "undefined" || !this.options.animations[i].fo){
+          this.options.animations[i].fo = 0;
+        }
+      }
+    }
+    // else{
+    //   this.options.animations = [];
+    // }
+  }
 
   // コンテンツデータを順番に読み込む
   $$.prototype.load_contents = function(){
@@ -425,7 +434,7 @@
   // ----------
   // animations
   $$.prototype.view_animations = function(time){
-    var anim = this.options.contents.animations;
+    var anim = this.options.animations;
     var target_images = [];
     var target_texts  = [];
     for(var i=0; i<anim.length; i++){

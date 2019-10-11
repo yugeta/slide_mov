@@ -10,7 +10,7 @@
   </head>
   <body>
 
-    <h1>Sample-page</h1>
+    <h1>Sample</h1>
 
     <div id="movie_base"></div>
     <div id="movie_time"></div>
@@ -24,8 +24,9 @@
         },
         "contents" : {
           "sounds" : [
-            {"file" : "sample/sounds/Acoustic_High_Collar.mp3" , "maxTime":""},
-            {"file" : "sample/sounds/アコーディオンのかわいいジングル.mp3" , "maxTime":""}
+            {"file" : "sample/jpop/[PRINCESS PRINCESS] パレードしようよ.mp3" , "maxTime":""},
+            {"file" : "sample/jpop/[PRINCESS PRINCESS] Diamonds.mp3" , "maxTime":""}
+            
           ],
           "images" : [
             {"id":1  , "group":"a" , "file":"sample/images/1.jpg"},
@@ -79,33 +80,6 @@
             {"id":49 , "group":"e" , "file":"sample/images/49.jpg"},
             {"id":50 , "group":"e" , "file":"sample/images/50.jpg"}
           ],
-
-          "animations" : [
-            {"in":0  , "out":8  , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":1},
-            {"in":5  , "out":13 , "fi":3 , "fo":3 , "mode":"zoom-out"   , "image_id":2},
-            {"in":10 , "out":18 , "fi":3 , "fo":3 , "mode":"move-right" , "image_id":3},
-            {"in":15 , "out":23 , "fi":3 , "fo":3 , "mode":"move-left"  , "image_id":4},
-            {"in":20 , "out":28 , "fi":3 , "fo":3 , "mode":"move-down"  , "image_id":5},
-            {"in":25 , "out":33 , "fi":3 , "fo":3 , "mode":"move-up"    , "image_id":6},
-            {"in":30 , "out":38 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":7},
-            {"in":35 , "out":43 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":8},
-            {"in":40 , "out":48 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":9},
-
-            {"in":0  , "out":20 , "fi":0 , "fo":2 , "mode":""    , "text_id":"txt-1"},
-            {"in":20 , "out":40 , "fi":3 , "fo":3 , "mode":""    , "text_id":"txt-2"}
-          ],
-
-          "animation_set" : [
-            {
-              "count":10,
-              "from":0,
-              "to":40,
-              "group":"a",
-              "type":"random",
-              "options":{"anim-fo":2.0}
-            }
-          ],
-
           "texts" : [
             {
               "id" : "txt-1",
@@ -138,7 +112,51 @@
               "style":""
             }
           ]
-        }
+        },
+        "animations" : [
+            {"in":40 , "out":60 , "image_id":50},
+            {"in":60 , "out":70 , "image_id":48},
+            {"in":70 , "out":80 , "image_id":39},
+            {"in":80 , "out":90 , "image_id":47},
+            {"in":90 , "out":100 , "image_id":38},
+            {"in":100 , "out":110 , "image_id":46},
+            {"in":110 , "out":120 , "image_id":37},
+            {"in":120 , "out":130 , "image_id":45},
+            {"in":130 , "out":140 , "image_id":36},
+            {"in":140 , "out":150 , "image_id":44},
+            {"in":150 , "out":160 , "image_id":35},
+            {"in":160 , "out":170 , "image_id":43},
+            {"in":170 , "out":180 , "image_id":34},
+            {"in":180 , "out":190 , "image_id":41},
+            {"in":190 , "out":200 , "image_id":33},
+            {"in":200 , "out":210 , "image_id":40},
+            {"in":210 , "out":220 , "fi":3 , "image_id":32},
+            {"in":208 , "image_id":42},
+            {"in":0  , "out":3  , "fi":0 , "fo":3 , "mode":""    , "image_id":49},
+            {"in":0  , "out":8  , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":1},
+            {"in":5  , "out":13 , "fi":3 , "fo":3 , "mode":"zoom-out"   , "image_id":2},
+            {"in":10 , "out":18 , "fi":3 , "fo":3 , "mode":"move-right" , "image_id":3},
+            {"in":15 , "out":23 , "fi":3 , "fo":3 , "mode":"move-left"  , "image_id":4},
+            {"in":20 , "out":28 , "fi":3 , "fo":3 , "mode":"move-down"  , "image_id":5},
+            {"in":25 , "out":33 , "fi":3 , "fo":3 , "mode":"move-up"    , "image_id":6},
+            {"in":30 , "out":38 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":7},
+            {"in":35 , "out":43 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":8},
+            {"in":40 , "out":48 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":9},
+
+            {"in":1  , "out":20 , "fi":3 , "fo":2 , "mode":""    , "text_id":"txt-1"},
+            {"in":20 , "out":40 , "fi":3 , "fo":3 , "mode":""    , "text_id":"txt-2"}
+          ],
+
+          "animation_set" : [
+            {
+              "count":10,
+              "from":0,
+              "to":40,
+              "group":"a",
+              "type":"random",
+              "options":{"anim-fo":2.0}
+            }
+          ]
       });
     </script>
   </body>
