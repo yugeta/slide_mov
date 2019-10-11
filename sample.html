@@ -79,16 +79,20 @@
             {"id":49 , "group":"e" , "file":"sample/images/49.jpg"},
             {"id":50 , "group":"e" , "file":"sample/images/50.jpg"}
           ],
+
           "animations" : [
-            {"in":0  , "out":8  , "fi":3 , "fo":3 , "mode":"zoom-in"    , "target":1},
-            {"in":5  , "out":13 , "fi":3 , "fo":3 , "mode":"zoom-out"   , "target":2},
-            {"in":10 , "out":18 , "fi":3 , "fo":3 , "mode":"move-right" , "target":3},
-            {"in":15 , "out":23 , "fi":3 , "fo":3 , "mode":"move-left"  , "target":4},
-            {"in":20 , "out":28 , "fi":3 , "fo":3 , "mode":"move-down"  , "target":5},
-            {"in":25 , "out":33 , "fi":3 , "fo":3 , "mode":"move-up"    , "target":6},
-            {"in":30 , "out":38 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "target":7},
-            {"in":35 , "out":43 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "target":8},
-            {"in":40 , "out":48 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "target":9}
+            {"in":0  , "out":8  , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":1},
+            {"in":5  , "out":13 , "fi":3 , "fo":3 , "mode":"zoom-out"   , "image_id":2},
+            {"in":10 , "out":18 , "fi":3 , "fo":3 , "mode":"move-right" , "image_id":3},
+            {"in":15 , "out":23 , "fi":3 , "fo":3 , "mode":"move-left"  , "image_id":4},
+            {"in":20 , "out":28 , "fi":3 , "fo":3 , "mode":"move-down"  , "image_id":5},
+            {"in":25 , "out":33 , "fi":3 , "fo":3 , "mode":"move-up"    , "image_id":6},
+            {"in":30 , "out":38 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":7},
+            {"in":35 , "out":43 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":8},
+            {"in":40 , "out":48 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_id":9},
+
+            {"in":0  , "out":20 , "fi":0 , "fo":2 , "mode":""    , "text_id":"txt-1"},
+            {"in":20 , "out":40 , "fi":3 , "fo":3 , "mode":""    , "text_id":"txt-2"}
           ],
 
           "animation_set" : [
@@ -104,46 +108,34 @@
 
           "texts" : [
             {
-              "id":"txt-1",
+              "id" : "txt-1",
               "text":"特別なイベントの動画 &hearts;",
-
-              "in":0,
-              "out":10,
-              "mode":"zoom-in",
-              "fi":3,
-              "fo":3,
 
               "top" : "20px",
               "left" : "0",
               "width":"100%",
               "height":"80px",
               "font-size":"60px",
-              "color":"res",
+              "color":"white",
               "align":"center",
               "weight":"bold",
-              
-              "style":"position:absolute;"
+
+              "style":""
             },
             {
-              "id":"txt-2",
+              "id" : "txt-2",
               "text":"Happy Wedding &hearts;",
-
-              "in":15,
-              "out":20,
-              "mode":"move-right",
-              "fi":3,
-              "fo":3,
 
               "bottom" : "50px",
               "left" : "0",
               "width":"100%",
               "height":"40px",
               "font-size":"40px",
-              "color":"blue",
+              "color":"#EEF",
               "align":"center",
               "weight":"bold",
 
-              "style":"position:absolute;"
+              "style":""
             }
           ]
         }
