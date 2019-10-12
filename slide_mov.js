@@ -166,7 +166,9 @@
       this.set_contents(this.options.contents);
     }
     // animationセット
-    if(typeof this.options.animations !== "undefined"){
+    if(typeof this.options.animations !== "undefined"
+    && this.options.animations.length){
+      this.set_animation_set();
       this.set_animations();
     }
     else{
@@ -297,10 +299,10 @@
 
   };
 
-  $$.prototype.set_animations = function(data){
+  $$.prototype.set_animations = function(){
     
     // animation
-    if(typeof this.options.animations !== "undefined"){
+    if(this.options.animations.length){
       for(var i=0; i<this.options.animations.length; i++){
         if(typeof this.options.animations[i].fi === "undefined" || !this.options.animations[i].fi){
           this.options.animations[i].fi = 0;
@@ -308,12 +310,72 @@
         if(typeof this.options.animations[i].fo === "undefined" || !this.options.animations[i].fo){
           this.options.animations[i].fo = 0;
         }
+        var total_sec = this.options.animations[i].out - this.options.animations[i].in;
+        var fade_sec  = this.options.animations[i].fi + this.options.animations[i].fo;
+        if(total_sec < fade_sec){
+          this.options.animations[i].fi = this.options.animations[i].fo = total_sec / 2;
+
+        }
       }
     }
-    // else{
-    //   this.options.animations = [];
-    // }
+    else{
+      this.options.animations = [];
+    }
   }
+  $$.prototype.set_animation_set = function(){
+    if(!this.options.animations
+    || !this.options.animations.length){reutrn;}
+
+    for(var i=0; i<this.options.animations.length; i++){
+      if(typeof this.options.animations[i].images_id === "undefined"
+      || !this.options.animations[i].images_id
+      || !this.options.animations[i].images_id.length){continue;}
+
+      var image_datas = (function(data){
+        data.in  = (data.in)  ? data.in  : 0;
+        data.out = (data.out) ? data.out : 0;
+        var start_sec = data.in;
+        var step_sec  = (data.out - data.in) / data.images_id.length;
+
+        var cache = JSON.stringify(data);
+        var datas = [];
+        for(var i=0; i<data.images_id.length; i++){
+          var newData = JSON.parse(cache);
+          newData.image_id = data.images_id[i];
+
+          newData.in  = i * step_sec + start_sec;
+          newData.out = (i+1) * step_sec + start_sec;
+
+          delete newData.images_id;
+          datas.push(newData);
+        }
+        return datas;
+      })(this.options.animations[i]); 
+
+      if(!image_datas){
+        this.options.animations.splice(i,0);
+        continue;
+      }
+
+      this.options.animations = __array_merge(this.options.animations , image_datas , i);
+      i = i + image_datas.length - 1;
+      // for(var j=image_datas.length-1; j>=0; j--){
+      //   // this.options.animations.splice(i,0,image_datas[j]);
+      // }
+      // delete this.options.animations.splice[i];
+      // i = i + image_datas.length - 1;
+      // this.options.animations.splice(i,1,image_datas);
+    }
+console.log(this.options.animations);
+  };
+
+  // 配列の指定の箇所の値に、別の配列を入れ込む
+  var __array_merge = function(arr_base , arr_add , num){
+    var arr_before = arr_base.slice(0 , num);
+    var arr_after  = arr_base.slice(num+1);
+    return [].concat(arr_before,arr_add,arr_after);
+  };
+
 
   // コンテンツデータを順番に読み込む
   $$.prototype.load_contents = function(){
