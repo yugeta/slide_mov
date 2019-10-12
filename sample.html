@@ -13,18 +13,31 @@
     <h1>Sample</h1>
 
     <div id="movie_base"></div>
-    <div id="movie_time"></div>
+    <div class="movie_control">
+      <div id="movie_play" data-play="1"></div>
+      <div id="movie_pause" data-pause="0"></div>
+      <div id="movie_return"></div>
+      <div id="movie_expand"></div>
+      <div id="movie_time"></div>
+    </div>
 
     <script>
       var slide_mov = new $$slide_mov({
         "target" : {
-          "base" : "#movie_base",
-          "time" : "#movie_time",
-          "seek" : "#movie_seek"
+          base    : "#movie_base",
+          time    : "#movie_time",
+          seek    : "#movie_seek",
+          volume  : "#movie_volume",
+          play    : "#movie_play",
+          pause   : "#movie_pause",
+          return  : "#movie_return",
+          sound   : "#movie_sound",
+          volume  : "#movie_volume",
+          expand  : "#movie_expand"
         },
         "contents" : {
           "sounds" : [
-            {"file" : "sample/jpop/[PRINCESS PRINCESS] パレードしようよ.mp3" , "maxTime":""},
+            {"file" : "sample/jpop/[back number] ヒロイン.mp3" , "maxTime":""},
             {"file" : "sample/jpop/[PRINCESS PRINCESS] Diamonds.mp3" , "maxTime":""}
             
           ],
@@ -110,7 +123,19 @@
               "weight":"bold",
 
               "style":""
-            }
+            },
+            {
+              "id" : "endroll",
+              "type" : "scroll",
+              "text":"**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\n\n\n\n\ndddddddddd dddddddddd",
+
+              
+              "font-size":"30px",
+              "color":"white",
+              "align":"left",
+
+              "style":"white-space:pre;margin:0 auto;text-shadow:2px 2px 2px rgba(0,0,0,0.5)"
+            },
           ]
         },
         // "animations" : [
@@ -148,16 +173,14 @@
         //   ],
 
           "animations" : [
-            {"in":0 , "out":10 , "image_id":50},
-            {"in":10 , "out":60  , "fi":1 , "fo":1 , "fade-mode":"cross" , "mode":"zoom-in" , "images_id":[1,2,3,4,5,6,7,8,9,10]},
-            {"in":60 , "out":70 , "image_id":49}
-            // {
-            //   "in":0,
-            //   "to":30,
-            //   "group":"a",
-            //   "type":"random",
-            //   "options":{"anim-fo":2.0}
-            // }
+            {"in":0  , "out":10 , "image_id":50},
+            {"in":10 , "out":60 , "fi":1 , "fo":1 , "fade-mode":"cross" , "mode":"zoom-in" , "images_id":[1,2,3,4,5,6,7,8,9,10] , "sort":"random"},
+            {"in":60 , "fi":3 , "fo":0 , "image_id":49},
+
+
+            {"in":1  , "out":10  , "fi":1 , "fo":2 , "mode":""   , "text_id":"txt-1"},
+            {"in":15 , "out":25  , "fi":1 , "fo":3 , "mode":""   , "text_id":"txt-2"},
+            {"in":58 , "out":200 , "fi":0 , "fo":0 , "mode":"scroll-up" , "text_id":"endroll"}
           ]
       });
     </script>
