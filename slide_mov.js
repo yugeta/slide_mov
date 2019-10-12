@@ -310,6 +310,8 @@
         if(typeof this.options.animations[i].fo === "undefined" || !this.options.animations[i].fo){
           this.options.animations[i].fo = 0;
         }
+
+        // fade-in,outが画像の表示時間を超えている場合は自動的に調整する。
         var total_sec = this.options.animations[i].out - this.options.animations[i].in;
         var fade_sec  = this.options.animations[i].fi + this.options.animations[i].fo;
         if(total_sec < fade_sec){
@@ -334,21 +336,44 @@
       var image_datas = (function(data){
         data.in  = (data.in)  ? data.in  : 0;
         data.out = (data.out) ? data.out : 0;
-        var start_sec = data.in;
-        var step_sec  = (data.out - data.in) / data.images_id.length;
-
+        var face_mode = (typeof data["fade-mode"] !== "undefined") ? data["fade-mode"] : "";
         var cache = JSON.stringify(data);
         var datas = [];
-        for(var i=0; i<data.images_id.length; i++){
-          var newData = JSON.parse(cache);
-          newData.image_id = data.images_id[i];
+        switch(face_mode){
+          case "cross":
+            var start_sec = data.in;
+            var between   = data.out - data.in;
+            var fade_sec  = (data.fi * data.images_id.length) + data.fo;
+            if((data.out - data.in) < fade_sec){
+              data.fi = data.fo = between / (data.images_id.length + 1) / 2;
+            }
+            var step_sec  = (between - fade_sec) / (data.images_id.length);
 
-          newData.in  = i * step_sec + start_sec;
-          newData.out = (i+1) * step_sec + start_sec;
+            for(var i=0; i<data.images_id.length; i++){
+              var newData = JSON.parse(cache);
+              newData.image_id = data.images_id[i];
+              newData.in  = i * (step_sec + data.fi) + start_sec;
+              newData.out = (i+1) * (step_sec + data.fi) + data.fo + start_sec;
 
-          delete newData.images_id;
-          datas.push(newData);
+              delete newData.images_id;
+              datas.push(newData);
+            }
+            break;
+          default : 
+            var start_sec = data.in;
+            var step_sec  = (data.out - data.in) / data.images_id.length;
+            for(var i=0; i<data.images_id.length; i++){
+              var newData = JSON.parse(cache);
+              newData.image_id = data.images_id[i];
+              newData.in  = i * step_sec + start_sec;
+              newData.out = (i+1) * step_sec + start_sec;
+
+              delete newData.images_id;
+              datas.push(newData);
+            }
+            break;
         }
+        
         return datas;
       })(this.options.animations[i]); 
 
