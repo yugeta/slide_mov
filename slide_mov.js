@@ -73,7 +73,9 @@
       return  : "#movie_return",
       sound   : "#movie_sound",
       volume  : "#movie_volume",
-      expand  : "#movie_expand"
+      expand  : "#movie_expand",
+      volume  : "#movie_volume",
+      mute    : "#movie_mute"
     },
 
     selectors : {
@@ -87,6 +89,10 @@
     control_image : {
       play    : "img/play.svg",
       pause   : "img/pause.svg"
+    },
+
+    default : {
+      volume : 2
     },
 
     loading     : 1,
@@ -148,27 +154,41 @@
     }
 
     // make-element
-    this.make_element();
+    this.make_default_element();
 
     // base-set
     var base = document.querySelector(this.options.target.base)
     if(!base){return;}
     base.setAttribute("data-base" , this.options.selectors.base.replace(/\./,""));
 
-    // 設定データをサーバーから読み込み
-    if(typeof this.options.contents !== "undefined"){
-      this.set_contents(this.options.contents);
-    }
+    
+
     // animationセット
     if(typeof this.options.animations !== "undefined"
     && this.options.animations.length){
       this.set_animation_set();
       this.set_animations();
     }
-    else{
-      console.log("Error ! : Not animations setting.");
+
+    // 設定データをサーバーから読み込み
+    if(typeof this.options.contents !== "undefined"){
+      this.set_contents(this.options.contents);
     }
 
+    // data-loading-start
+    if(this.options.contents_loadFiles.length > 0){
+      this.nowLoading_start();
+      this.load_contents();
+    }
+
+    // event
+    this.setting_event();
+
+  };
+
+  // ----------
+  // Event
+  $$.prototype.setting_event = function(){
     // 画面拡大処理
     var expand = document.querySelector(this.options.target.expand);
     if(expand){
@@ -191,6 +211,21 @@
       __event(restart , "click" , (function(e){this.clickReturn(e);}).bind(this));
     }
 
+    // // volume
+    // var volume = document.querySelector(this.options.target.volume);
+    // if(volume){
+    //   __event(volume , "click" , (function(e){this.clickVolume(e);}).bind(this));
+    //   volume.setAttribute("data-volume",this.options.default.volume);
+    // }
+
+    // mute
+    var mute = document.querySelector(this.options.target.mute);
+    if(mute){
+      __event(mute , "click" , (function(e){this.clickMute(e);}).bind(this));
+    }
+
+
+    __event(window , "keydown" , (function(e){this.keydown(e)}).bind(this));
   };
 
   // ----------
@@ -207,7 +242,7 @@
     }
   };
 
-  $$.prototype.make_element = function(){
+  $$.prototype.make_default_element = function(){
     var base = document.querySelector(this.options.target.base);
 
     // image-area
@@ -231,7 +266,6 @@
       for(var i=0; i<data.sounds.length; i++){
         if(typeof data.sounds[i].file === "undefined" || !data.sounds[i].file){continue}
         data.sounds[i].type = "sound";
-        // data.sounds[i].id   = (typeof data.sounds[i].id !== "undefined") ? data.sounds[i].id : i;
         data.sounds[i].id = i;
         this.options.contents_loadFiles.push(data.sounds[i]);
       }
@@ -241,8 +275,11 @@
     if(typeof data.images !== "undefined"){
       for(var i=0; i<data.images.length; i++){
         if(typeof data.images[i].file === "undefined" || !data.images[i].file){continue}
+
         data.images[i].type = "image";
         data.images[i].id   = (typeof data.images[i].id !== "undefined") ? data.images[i].id : i;
+        
+        if(!this.checkAnimationInImageData(data.images[i].id)){continue;}
         this.options.contents_loadFiles.push(data.images[i]);
       }
     }
@@ -255,14 +292,18 @@
       }
     }
 
-    // load-start
-    if(this.options.contents_loadFiles.length > 0){
-      this.nowLoading_start();
-      this.load_contents();
+  };
+
+  // animationデータにimageが含まれているかチェック（含まれていない場合は読み込みをしない）
+  $$.prototype.checkAnimationInImageData = function(image_id){
+    var anims = this.options.animations;
+    for(var i=0; i<anims.length; i++){
+      if(typeof anims[i].image_id !== "undefined"
+      && anims[i].image_id == image_id){
+        return true;
+      }
     }
-
-    __event(window , "keydown" , (function(e){this.keydown(e)}).bind(this));
-
+    return false;
   };
 
   $$.prototype.set_animations = function(){
@@ -353,7 +394,6 @@
       this.options.animations = __array_merge(this.options.animations , image_datas , i);
       i = i + image_datas.length - 1;
     }
-// console.log(this.options.animations);
   };
 
   // ソート処理
@@ -366,14 +406,12 @@
         return lists.reverse();
       case "random":
 
-
         for(var i = lists.length - 1; i > 0; i--){
           var r = Math.floor(Math.random() * (i + 1));
           var tmp = lists[i];
           lists[i] = lists[r];
           lists[r] = tmp;
         }
-// console.log(lists);
         return lists;
       default :
         return lists;
@@ -419,19 +457,30 @@
     request.open('GET', data.file, true);
     request.responseType = 'arraybuffer';
     request.onload = (function(data,e){
-      var request = e.currentTarget;
-      this.options.contents_sounds[data.id] = {};
-      // var context = (typeof window.webkitAudioContext !== "undefined") ? new webkitAudioContext() : new AudioContext();
-      // this.options.contents_sounds[data.id].context = context;
-      this.options.contents_sounds[data.id].context = new (window.AudioContext || window.webkitAudioContext)();
-      this.options.contents_sounds[data.id].context.decodeAudioData(request.response, (function(data,buffer){
-        this.options.contents_sounds[data.id].buffer = buffer;
-        this.options.contents_sounds[data.id].source = this.options.contents_sounds[data.id].context.createBufferSource();
-        this.options.contents_sounds[data.id].source.connect(this.options.contents_sounds[data.id].context.destination);
-        this.options.contents_sounds[data.id].startTime = 0;
-        this.options.contents_sounds[data.id].pauseTime = 0;
+      var target = e.target;
+      switch(target.status){
+        case 200:
+          break;
+        case 404:
+          console.log("Error : File not found. ("+target.responseURL+")");
+          this.load_contents();
+          return false;
+        default:
+          this.load_contents();
+          return false;
+      }
+      var sounds = this.options.contents_sounds;
+      sounds[data.id] = {};
+      sounds[data.id].context = new (window.AudioContext || window.webkitAudioContext)();
+      sounds[data.id].gainNode = sounds[data.id].context.createGain();
+      sounds[data.id].gainNode.connect(sounds[data.id].context.destination);
+      sounds[data.id].context.decodeAudioData(target.response, (function(data,buffer){
+        var sound = this.options.contents_sounds[data.id];
+        sound.buffer = buffer;
+        sound.startTime = 0;
+        sound.pauseTime = 0;
         var maxTime = (typeof data.maxTime !== "undefined" && data.maxTime && Number(data.maxTime) < buffer.duration) ? Number(data.maxTime) : buffer.duration;
-        this.options.contents_sounds[data.id].maxTime   = maxTime;
+        sound.maxTime   = maxTime;
         this.viewTime();
         this.load_contents();
       }).bind(this,data));
@@ -442,6 +491,7 @@
   // 読み込み終了したsoundのtotal再生時間数を取得
   $$.prototype.loaded_sound_totalMaxTime = function(){
     var globalTime = 0;
+console.log("contents_sounds-count : "+this.options.contents_sounds.length);
     for(var i=0; i<this.options.contents_sounds.length; i++){
       this.options.maxTime += this.options.contents_sounds[i].maxTime;
       this.options.contents_sounds[i].globalTime = globalTime;
@@ -752,28 +802,27 @@
     }
   };
 
-
   // sound-play
   $$.prototype.playSound = function(){
     var sound = this.options.contents_sounds[this.options.current_sound_id];
-		if(typeof sound.source === "undefined" || !sound.source){
-			sound.source = sound.context.createBufferSource();
-	    sound.source.connect(sound.context.destination);
-		}
-    sound.source.buffer = sound.buffer;
-    sound.source.start(0 , sound.pauseTime);
+		if(typeof sound.gainSource === "undefined" || !sound.gainSource){
+			sound.gainSource = sound.context.createBufferSource();
+      sound.gainSource.connect(sound.gainNode);
+    }
+    sound.gainSource.buffer = sound.buffer;
+    sound.gainSource.start(0 , sound.pauseTime);
     sound.startTime = sound.context.currentTime - sound.pauseTime;
     this.viewTime();
   };
 
 	// sound-pause
-	$$.prototype.stopSound = function(){
+	$$.prototype.stopSound = function(){console.log("pause");
     var sound = this.options.contents_sounds[this.options.current_sound_id];
-    if(typeof sound.source === "undefined"){return;}
+    if(typeof sound.gainSource === "undefined"){return;}
     sound.pauseTime = sound.context.currentTime - sound.startTime;
-    sound.source.disconnect();
-    sound.source.stop();
-    delete sound.source;
+    sound.gainSource.disconnect();
+    sound.gainSource.stop();
+    delete sound.gainSource;
   };
 
   // 動画のタイムライン表示処理
@@ -828,7 +877,6 @@
   $$.prototype.getCurrentTime = function(){
     var sound = this.options.contents_sounds[this.options.current_sound_id];
     if(!sound){return;}
-    // return sound.context.currentTime;
     var movie = document.querySelector(this.options.target.base);
 		if(movie.getAttribute("data-play") != 1) {
       return sound.context.currentTime;
@@ -898,6 +946,99 @@
     // 表示
     this.view_animations(0);
   };
+
+  // // クリックでボリューム変更
+  // $$.prototype.clickVolume = function(e){
+  //   var volume = document.querySelector(this.options.target.volume);
+  //   if(!volume){return}
+
+  //   var lists = document.querySelector(".volume-lists");
+  //   if(lists){
+  //     lists.parentNode.removeChild(lists);
+  //     return;
+  //   }
+
+  //   // プルダウン表示
+  //   var div = document.createElement("div");
+  //   div.className = "volume-lists";
+  //   volume.parentNode.appendChild(div);
+
+  //   var vol0 = document.createElement("img");
+  //   vol0.setAttribute("data-volume","0");
+  //   vol0.src = "sample/icon/volume-0.svg";
+  //   div.appendChild(vol0);
+
+  //   var vol1 = document.createElement("img");
+  //   vol1.setAttribute("data-volume","1");
+  //   vol1.src = "sample/icon/volume-1.svg";
+  //   div.appendChild(vol1);
+
+  //   var vol2 = document.createElement("img");
+  //   vol2.setAttribute("data-volume","2");
+  //   vol2.src = "sample/icon/volume-2.svg";
+  //   div.appendChild(vol2);
+
+  //   var vol3 = document.createElement("img");
+  //   vol3.setAttribute("data-volume","3");
+  //   vol3.src = "sample/icon/volume-3.svg";
+  //   div.appendChild(vol3);
+
+  // };
+
+  $$.prototype.clickMute = function(e){
+    var target = document.querySelector(this.options.target.mute);
+    if(!target){return}
+
+    if(target.getAttribute("data-mute") === "1"){
+      target.setAttribute("data-mute" , "0");
+      this.setSounds_mute(1);
+    }
+    else{
+      target.setAttribute("data-mute" , "1");
+      this.setSounds_mute(0);
+    }
+  };
+  // 全てのsoundをmuteにする
+  $$.prototype.setSounds_mute = function(val){
+    // var sound = this.options.contents_sounds[this.options.current_sound_id];
+    // sound.gainNode.gain.value = val;
+
+
+
+    for(var i=0; i<this.options.contents_sounds.length; i++){
+      var sound = this.options.contents_sounds[i];
+      sound.gainNode.gain.value = val;
+    //   if(typeof sound.source === "undefined" || !sound.source){
+    //     sound.source = sound.context.createBufferSource();
+    //     sound.source.connect(sound.context.destination);
+    //     sound.source.playbackRate.value = val;
+    //     sound.source.disconnect();
+    //   }
+    //   else{
+    //     sound.source.playbackRate.value = val;
+    //   }
+
+
+// // console.log(this.options.contents_sounds[i]);
+//       // this.options.contents_sounds[i].context.createBufferSource().start(0);
+//       var sound = this.options.contents_sounds[i];
+//       // sound.source = sound.context.createBufferSource();
+//       // sound.source.connect(sound.context.destination);
+//       // console.log(sound);
+//       // var gainNode = sound.context.createGain;
+//       // sound.source.connect(gainNode);
+//       // gainNode.connect(sound.context.destination);
+// console.log(sound.gainNode);
+//       sound.gainNode.gain.value = 0;
+//       // sound.source.start(0);
+//       // if(typeof sound.source === "undefined"){continue}
+//       // this.options.contents_sounds[i].source.muted = bool;
+//       // this.options.contents_sounds[i].muted = bool;
+//       // console.log(sound.muted);
+    }
+  };
+
+
 
 	$$.prototype.keyup = function(e){
 		if(!this.options.keyCache.length || !e.keyCode){return;}
