@@ -629,14 +629,22 @@ console.log("contents_sounds-count : "+this.options.contents_sounds.length);
       img_area.appendChild(img_base);
 
       // anim-mode-set
-      this.setAnimationMode(img_base , data.mode , (data.out - data.in));
+      this.setAnimationMode(img_base , data.mode , (data.out - data.in) , data);
     }
   };
 
   // init-setting : animation-mode
-  $$.prototype.setAnimationMode = function(elm , mode , time){
+  $$.prototype.setAnimationMode = function(elm , mode , time , data){
     if(!elm || !mode || !time){return}
     if(elm.getAttribute("data-animation-flg") === "1"){return;}
+    // mode-random
+    if(mode === "random"){
+      var modes = (data && typeof data.modes !== "undefined" && data.modes.length) ? data.modes : ["zoom-in","zoom-out","move-right","move-left","move-up","move-down"];
+      var rnd = Math.floor(Math.random() * (modes.length -1));
+      mode = modes[rnd];
+      // console.log(mode);
+    }
+    
     if(mode === "scroll-up"){
       var base = document.querySelector(this.options.target.base);
       elm.style.setProperty("bottom", (elm.offsetHeight * -1 - base.offsetHeight) + "px","");
@@ -731,7 +739,7 @@ console.log("contents_sounds-count : "+this.options.contents_sounds.length);
       text_value.style.setProperty("visibility" , "visible");
 
       // anim-mode-set
-      this.setAnimationMode(text_base , data.mode , (data.out - data.in));
+      this.setAnimationMode(text_base , data.mode , (data.out - data.in) , data);
     }
   };
 
@@ -816,7 +824,7 @@ console.log("contents_sounds-count : "+this.options.contents_sounds.length);
   };
 
 	// sound-pause
-	$$.prototype.stopSound = function(){console.log("pause");
+	$$.prototype.stopSound = function(){
     var sound = this.options.contents_sounds[this.options.current_sound_id];
     if(typeof sound.gainSource === "undefined"){return;}
     sound.pauseTime = sound.context.currentTime - sound.startTime;

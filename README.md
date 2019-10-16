@@ -61,6 +61,7 @@ Date   : 2019.10.09
         "fo"  : フェイドアウト（秒）,
         "fade-mode" : フェイドイン・アウトの挙動指定 ("":順次進行 , "cross":クロスフェード),
         "mode":"%動作モード（以下参照）",
+        "modes":"*modeがrandomの時のみ使用可能（配列でrandomリストを指定できる）"
         "image_id":"%表示対象の画像を指定",
         "images_id":"%表示対象画像を複数してい（配列）"
         "sort":"*複数画像の表示順番 (sort:昇順 , reverse:降順 , random:ランダム)"
@@ -77,7 +78,7 @@ Date   : 2019.10.09
     * move-left  : 左に移動
     * move-up    : 上に移動
     * move-down  : 下に移動
-    * 
+    * random     : 上記のどれかをランダムで選択
 
 
 # program
