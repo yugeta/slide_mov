@@ -161,11 +161,10 @@
     if(!base){return;}
     base.setAttribute("data-base" , this.options.selectors.base.replace(/\./,""));
 
-    
-
     // animationセット
     if(typeof this.options.animations !== "undefined"
     && this.options.animations.length){
+      this.pickupDatas();
       this.set_animation_set();
       this.set_animations();
     }
@@ -259,6 +258,108 @@
   // ----------
   // Contents-load
 
+  // animationsデータから画像データとテキストデータを抽出する
+  $$.prototype.pickupDatas = function(){
+    // animation->(pictures or texts)
+    if(typeof this.options.animations !== "undefined"){
+      this.options.contents = (typeof this.options.contents !== "undefined") ? this.options.contents : {};
+
+      // image
+      this.options.contents.images = (typeof this.options.contents.images !== "undefined") ? this.options.contents.images : [];
+      var cache = [];
+      for(var i=0; i<this.options.animations.length; i++){
+        // pictures
+        if(typeof this.options.animations[i].image_file !== "undefined"
+        && this.options.animations[i].image_file){
+          if(cache.indexOf(this.options.animations[i].image_file) !== -1){continue}
+          var id = "anim_" + i;
+          this.options.contents.images.push({
+            "id"   : id,
+            "file" : this.options.animations[i].image_file
+          });
+          this.options.animations[i].image_id = id;
+          cache.push(this.options.animations[i].image_file);
+        }
+      }
+
+      // images
+      var cache2 = [];
+      for(var i=0; i<this.options.animations.length; i++){
+        // pictures
+        if(typeof this.options.animations[i].image_files !== "undefined"
+        && this.options.animations[i].image_files){
+          var ids = [];
+          for(var j=0; j<this.options.animations[i].image_files.length; j++){
+            if(cache2.indexOf(this.options.animations[i].image_files[j]) !== -1){continue}
+            var id = "anim_" + i +"_"+ j;
+            this.options.contents.images.push({
+              "id"   : id,
+              "file" : this.options.animations[i].image_files[j]
+            });
+            cache2.push(this.options.animations[i].image_files[j]);
+            ids.push(id);
+          }
+          this.options.animations[i].images_id = ids;
+        }
+      }
+
+      // text
+      this.options.contents.texts = (typeof this.options.contents.texts !== "undefined") ? this.options.contents.texts : [];
+      // var cache = [];
+      for(var i=0; i<this.options.animations.length; i++){
+        // pictures
+        if(typeof this.options.animations[i].text !== "undefined"
+        && this.options.animations[i].text){
+          // if(cache.indexOf(this.options.animations[i].text) !== -1){continue}
+          var id = "anim_" + i;
+          var data = {
+            "id"   : id,
+            "text" : this.options.animations[i].text
+          };
+          if(typeof this.options.animations[i].style_data !== "undefined"){
+            if(typeof this.options.animations[i].style_data.top !== "undefined"){
+              data.top = this.options.animations[i].style_data.top;
+            }
+            if(typeof this.options.animations[i].style_data.bottom !== "undefined"){
+              data.bottom = this.options.animations[i].style_data.bottom;
+            }
+            if(typeof this.options.animations[i].style_data.left !== "undefined"){
+              data.left = this.options.animations[i].style_data.left;
+            }
+            if(typeof this.options.animations[i].style_data.right !== "undefined"){
+              data.right = this.options.animations[i].style_data.right;
+            }
+            if(typeof this.options.animations[i].style_data.width !== "undefined"){
+              data.width = this.options.animations[i].style_data.width;
+            }
+            if(typeof this.options.animations[i].style_data.height !== "undefined"){
+              data.height = this.options.animations[i].style_data.height;
+            }
+            if(typeof this.options.animations[i].style_data["font-size"] !== "undefined"){
+              data["font-size"] = this.options.animations[i].style_data["font-size"];
+            }
+            if(typeof this.options.animations[i].style_data.color !== "undefined"){
+              data.color = this.options.animations[i].style_data.color;
+            }
+            if(typeof this.options.animations[i].style_data.weight !== "undefined"){
+              data.weight = this.options.animations[i].style_data.weight;
+            }
+            if(typeof this.options.animations[i].style_data.align !== "undefined"){
+              data.align = this.options.animations[i].style_data.align;
+            }
+            if(typeof this.options.animations[i].style_data.style !== "undefined"){
+              data.style = this.options.animations[i].style_data.style;
+            }
+          }
+          this.options.contents.texts.push(data);
+          this.options.animations[i].text_id = id;
+          // cache.push(this.options.animations[i].text);
+        }
+      }
+    }
+// console.log(this.options);
+  };
+
   // 設定データ(options)から、コンテンツデータの読み込み(BGM,pictures(wall,other...),texts,timeline)のキャッシュデータを作成する
   $$.prototype.set_contents = function(data){
     // bgm
@@ -270,7 +371,7 @@
         this.options.contents_loadFiles.push(data.sounds[i]);
       }
     }
-
+    
     // pictures
     if(typeof data.images !== "undefined"){
       for(var i=0; i<data.images.length; i++){
@@ -283,6 +384,7 @@
         this.options.contents_loadFiles.push(data.images[i]);
       }
     }
+
 
     // texts
     if(typeof data.texts !== "undefined"){
@@ -491,7 +593,7 @@
   // 読み込み終了したsoundのtotal再生時間数を取得
   $$.prototype.loaded_sound_totalMaxTime = function(){
     var globalTime = 0;
-console.log("contents_sounds-count : "+this.options.contents_sounds.length);
+// console.log("contents_sounds-count : "+this.options.contents_sounds.length);
     for(var i=0; i<this.options.contents_sounds.length; i++){
       this.options.maxTime += this.options.contents_sounds[i].maxTime;
       this.options.contents_sounds[i].globalTime = globalTime;
@@ -581,7 +683,7 @@ console.log("contents_sounds-count : "+this.options.contents_sounds.length);
     // 削除処理(image)
     var visibleImages = document.querySelectorAll(this.options.target.base +" "+this.options.selectors.images+" .img-base");
     for(var i=0; i<visibleImages.length; i++){
-      var id = Number(visibleImages[i].getAttribute("data-id"));
+      var id = visibleImages[i].getAttribute("data-id");
       if(target_images.indexOf(id) === -1){
         visibleImages[i].parentNode.removeChild(visibleImages[i]);
       }
@@ -589,7 +691,7 @@ console.log("contents_sounds-count : "+this.options.contents_sounds.length);
     // 削除処理(text)
     var visibleImages = document.querySelectorAll(this.options.target.base +" "+this.options.selectors.texts+" .img-base");
     for(var i=0; i<visibleImages.length; i++){
-      var id = Number(visibleImages[i].getAttribute("data-id"));
+      var id = visibleImages[i].getAttribute("data-id");
       if(target_texts.indexOf(id) === -1){
         visibleImages[i].parentNode.removeChild(visibleImages[i]);
       }
@@ -647,7 +749,7 @@ console.log("contents_sounds-count : "+this.options.contents_sounds.length);
     
     if(mode === "scroll-up"){
       var base = document.querySelector(this.options.target.base);
-      elm.style.setProperty("bottom", (elm.offsetHeight * -1 - base.offsetHeight) + "px","");
+      elm.style.setProperty("bottom", (elm.offsetHeight * -1) + "px","");
     }
     elm.style.setProperty("animation" , "anim-"+ mode +" "+ time +"s linear forwards" , "");
     elm.setAttribute("data-animation-flg" , "1");

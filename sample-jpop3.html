@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Slide-Mov</title>
+    <link rel="icon" sizes="180x180" href="sample/icon/slider.png">
+    <link rel="stylesheet" href="sample.css">
+
+    <script src="slide_mov.js"></script>
+  </head>
+  <body>
+
+    <h1>Sample</h1>
+
+    <div id="movie_base"></div>
+    <div class="movie_control">
+      <div id="movie_play" data-play="1"></div>
+      <div id="movie_pause" data-pause="0"></div>
+      <div id="movie_return"></div>
+      <div id="movie_expand"></div>
+      <div id="movie_time"></div>
+      <div id="movie_mute"></div>
+    </div>
+
+    <script>
+      var slide_mov = new $$slide_mov({
+        "contents" : {
+          "sounds" : [
+            {"file" : "sample/jpop/[サザンオールスターズ] 心を込めて花束を.mp3" , "maxTime":""},
+            {"file" : "sample/jpop/[PRINCESS PRINCESS] Diamonds.mp3" , "maxTime":""}
+            
+          ]
+        },
+        "animations" : [
+            {"in":40 , "out":60 , "image_file":"sample/images/50.jpg"},
+            {"in":60 , "out":70 , "image_file":"sample/images/48.jpg"},
+            {"in":70 , "out":80 , "image_file":"sample/images/39.jpg"},
+            {"in":80 , "out":90 , "image_file":"sample/images/47.jpg"},
+            {"in":90 , "out":100 , "image_file":"sample/images/38.png"},
+            // {"in":100 , "out":110 , "image_file":"sample/images/46.jpg"},
+            // {"in":110 , "out":120 , "image_file":"sample/images/37.png"},
+            // {"in":120 , "out":130 , "image_file":"sample/images/45.jpg"},
+            // {"in":130 , "out":140 , "image_file":"sample/images/36.jpg"},
+            // {"in":140 , "out":150 , "image_file":"sample/images/44.jpg"},
+            // {"in":150 , "out":160 , "image_file":"sample/images/35.jpg"},
+            // {"in":160 , "out":170 , "image_file":"sample/images/43.jpg"},
+            // {"in":170 , "out":180 , "image_file":"sample/images/34.jpg"},
+            // {"in":180 , "out":190 , "image_file":"sample/images/41.jpg"},
+            // {"in":190 , "out":200 , "image_file":"sample/images/33.jpg"},
+            // {"in":200 , "out":210 , "image_file":"sample/images/40.jpg"},
+            {"in":110 , "out":210 , "fi":2 , "fo":2 , "fade-mode":"cross" , "mode":"random" , "modes" : ["zoom-in","zoom-out","move-left","move-right"] , "image_files":["sample/images/46.jpg","sample/images/37.png","sample/images/45.jpg","sample/images/36.jpg","sample/images/44.jpg","sample/images/35.jpg","sample/images/43.jpg","sample/images/34.jpg","sample/images/41.jpg","sample/images/33.jpg","sample/images/40.jpg"] , "sort":"random"},
+            {"in":210 , "out":220 , "fi":3 , "image_file":"sample/images/32.jpg"},
+            {"in":208 , "image_file":"sample/images/42.jpg"},
+            {"in":0  , "out":3  , "fi":0 , "fo":3 , "mode":""    , "image_file":"sample/images/49.jpg"},
+            {"in":0  , "out":8  , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_file":"sample/images/1.jpg"},
+            {"in":5  , "out":13 , "fi":3 , "fo":3 , "mode":"zoom-out"   , "image_file":"sample/images/2.jpg"},
+            {"in":10 , "out":18 , "fi":3 , "fo":3 , "mode":"move-right" , "image_file":"sample/images/3.jpg"},
+            {"in":15 , "out":23 , "fi":3 , "fo":3 , "mode":"move-left"  , "image_file":"sample/images/4.jpg"},
+            {"in":20 , "out":28 , "fi":3 , "fo":3 , "mode":"move-down"  , "image_file":"sample/images/5.jpg"},
+            {"in":25 , "out":33 , "fi":3 , "fo":3 , "mode":"move-up"    , "image_file":"sample/images/6.jpg"},
+            {"in":30 , "out":38 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_file":"sample/images/7.jpg"},
+            {"in":35 , "out":43 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_file":"sample/images/8.jpg"},
+            {"in":40 , "out":48 , "fi":3 , "fo":3 , "mode":"zoom-in"    , "image_file":"sample/images/9.jpg"},
+
+            {"in":0  , "out":10 , "fi":3 , "fo":3 , "mode":""    , "text":"特別なイベントの動画 &hearts;","style_data":{"top" : "20px","left" : "0","width":"100%","height":"80px","font-size":"60px","color":"white","align":"center","weight":"bold"}},
+            {"in":10 , "out":20 , "fi":3 , "fo":3 , "mode":""    , "text":"Happy Wedding &hearts;" , "style_data":{"bottom" : "50px","left" : "0","width":"100%","height":"40px","font-size":"40px","color":"#EEF","align":"center","weight":"normal"}},
+            {"in":20 , "out":200 , "mode":"scroll-up" , "style_data" : { "font-size":"30px" , "color":"white" , "align":"left" , "style":"white-space:pre;margin:0 auto;text-shadow:2px 2px 2px rgba(0,0,0,0.5)" } , "text":"**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\n\n\n\n\ndddddddddd dddddddddd"}
+          ]
+      });
+    </script>
+  </body>
+</html>

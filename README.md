@@ -1,7 +1,13 @@
 Slide-Mov.js
 ==
+```
 Author : Yugeta.Koji
 Date   : 2019.10.09
+
+History
+  ver 1.0 : first-version
+  ver 1.1 : auto-image-file-lists
+```
 
 # specificate
   - file-type 
@@ -50,6 +56,7 @@ Date   : 2019.10.09
       ],
       images : [
         {"id":"登録しない場合は順番の値で登録される※0スタート"  , "group":"%複数の画像でグルーピングを行う際の任意タグ" , "file":"%ファイルの置いてあるパス"}
+        *** animationsに"image-file"として登録することで、この項目を作成しなくてもいい(ver1.1)。
       ],
       texts  : []
     },
