@@ -7,6 +7,8 @@ Date   : 2019.10.09
 History
   ver 1.0 : first-version
   ver 1.1 : auto-image-file-lists
+  ver 1.2 : no-sound-movie
+  ver 2.0 : change-construct
 ```
 
 # specificate
@@ -18,6 +20,7 @@ History
     zoom in,out
     pan holizontal,vertical
     fade in,out
+    fade-mode : random,zoon-in...
   - time
     bgm-conform
 
@@ -106,7 +109,7 @@ History
 
 
 
-# music-download-site
+# data-download-site
   - sampleのmp3データは、以下からDLしています。
     https://dova-s.jp/
 
@@ -119,4 +122,12 @@ History
 
 # causion
   - 複数のsoundを再生する場合、soundの切り替え処理がintervalの感覚分誤差が発生する場合があるので、切り替えsound数が増えた際にanimationの指定秒数とずれ込む可能性があります。（厳密な秒数指定をしたい場合はsoundを１つにまとめたデータとして使用するとズレが発生しなくなります）
+
+
+# Request
+  - 音量変更UI
+  - 操作ボタンの自動削除
+  - 画面クリックでの動画再生・停止、プレイボタンの表示など
+  - 
+
 

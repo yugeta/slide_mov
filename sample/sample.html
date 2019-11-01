@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Slide-Mov</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="icon" sizes="180x180" href="icon/slider.png">
+    <link rel="stylesheet" href="sample.css">
+    <script src="../slide_mov.js?ver0.0.3"></script>
+  </head>
+  <body>
+
+    <h1>Sample</h1>
+
+    <div id="slide_mov"></div>
+
+    <script>
+      var slide_mov = new $$slide_mov({
+        "contents" : {
+          "images" : [
+            {"id":1  , "group":"a" , "file":"images/1.jpg"},
+            {"id":2  , "group":"a" , "file":"images/2.jpg"},
+            {"id":3  , "group":"a" , "file":"images/3.jpg"},
+            {"id":4  , "group":"a" , "file":"images/4.jpg"},
+            {"id":5  , "group":"a" , "file":"images/5.jpg"},
+            {"id":6  , "group":"a" , "file":"images/6.jpg"},
+            {"id":7  , "group":"a" , "file":"images/7.jpg"},
+            {"id":8  , "group":"a" , "file":"images/8.jpg"},
+            {"id":9  , "group":"a" , "file":"images/9.jpg"},
+            {"id":10 , "group":"a" , "file":"images/10.jpg"},
+            {"id":11 , "group":"b" , "file":"images/11.jpg"},
+            {"id":12 , "group":"b" , "file":"images/12.jpg"},
+            {"id":13 , "group":"b" , "file":"images/13.jpg"},
+            {"id":14 , "group":"b" , "file":"images/14.png"},
+            {"id":15 , "group":"b" , "file":"images/15.png"},
+            {"id":16 , "group":"b" , "file":"images/16.jpg"},
+            {"id":17 , "group":"b" , "file":"images/17.jpg"},
+            {"id":18 , "group":"b" , "file":"images/18.jpg"},
+            {"id":19 , "group":"b" , "file":"images/19.jpg"},
+            {"id":20 , "group":"b" , "file":"images/20.jpg"},
+            {"id":21 , "group":"c" , "file":"images/21.jpg"},
+            {"id":22 , "group":"c" , "file":"images/22.jpg"},
+            {"id":23 , "group":"c" , "file":"images/23.jpg"},
+            {"id":24 , "group":"c" , "file":"images/24.jpg"},
+            {"id":25 , "group":"c" , "file":"images/25.jpg"},
+            {"id":26 , "group":"c" , "file":"images/26.jpg"},
+            {"id":27 , "group":"c" , "file":"images/27.jpg"},
+            {"id":28 , "group":"c" , "file":"images/28.jpg"},
+            {"id":29 , "group":"c" , "file":"images/29.jpg"},
+            {"id":30 , "group":"c" , "file":"images/30.jpg"},
+            {"id":31 , "group":"d" , "file":"images/31.jpg"},
+            {"id":32 , "group":"d" , "file":"images/32.jpg"},
+            {"id":33 , "group":"d" , "file":"images/33.jpg"},
+            {"id":34 , "group":"d" , "file":"images/34.jpg"},
+            {"id":35 , "group":"d" , "file":"images/35.jpg"},
+            {"id":36 , "group":"d" , "file":"images/36.jpg"},
+            {"id":37 , "group":"d" , "file":"images/37.png"},
+            {"id":38 , "group":"d" , "file":"images/38.png"},
+            {"id":39 , "group":"d" , "file":"images/39.jpg"},
+            {"id":40 , "group":"d" , "file":"images/40.jpg"},
+            {"id":41 , "group":"e" , "file":"images/41.jpg"},
+            {"id":42 , "group":"e" , "file":"images/42.jpg"},
+            {"id":43 , "group":"e" , "file":"images/43.jpg"},
+            {"id":44 , "group":"e" , "file":"images/44.jpg"},
+            {"id":45 , "group":"e" , "file":"images/45.jpg"},
+            {"id":46 , "group":"e" , "file":"images/46.jpg"},
+            {"id":47 , "group":"e" , "file":"images/47.jpg"},
+            {"id":48 , "group":"e" , "file":"images/48.jpg"},
+            {"id":49 , "group":"e" , "file":"images/49.jpg"},
+            {"id":50 , "group":"e" , "file":"images/50.jpg"}
+          ],
+          "texts" : [
+            {
+              "id" : "txt-1",
+              "text":"特別なイベントの動画 &hearts;",
+
+              "top" : "20px",
+              "left" : "0",
+              "width":"100%",
+              "height":"80px",
+              "font-size":"60px",
+              "color":"white",
+              "align":"center",
+              "weight":"bold",
+
+              "style":""
+            },
+            {
+              "id" : "txt-2",
+              "text":"Happy &hearts;",
+
+              "bottom" : "50px",
+              "left" : "0",
+              "width":"100%",
+              "height":"40px",
+              "font-size":"40px",
+              "color":"#EEF",
+              "align":"center",
+              "weight":"bold",
+
+              "style":""
+            },
+            {
+              "id" : "endroll",
+              "text":"**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\n\n\n\n\ndddddddddd dddddddddd",
+
+              "font-size":"30px",
+              "color":"white",
+              "align":"left",
+
+              "style":"white-space:pre;margin:0 auto;text-shadow:2px 2px 2px rgba(0,0,0,0.5)"
+            },
+            {
+              "id" : "endroll2",
+              "text":"**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\ndddddddddd dddddddddd\n\n\n\n\n\n\n\n**** ****\n++++ ++++\n\naaaaaaaaaa aaaaaaaaaa\nbbbbbbbbbb bbbbbbbbbb\ncccccccccc\n\n\n\n\n\ndddddddddd dddddddddd",
+
+              "font-size":"20px",
+              "color":"white",
+              "align":"left",
+
+              "style":"white-space:pre;margin:0 auto;text-shadow:2px 2px 2px rgba(0,0,0,0.5)"
+            }
+          ]
+        },
+
+        "animations" : [
+          {"in":0  , "out":10 , "fi":3 , "fo":2 , "image_id":50 , "mode":"zoom-out"},
+          {"in":10 , "out":40 , "fi":1 , "fo":1 , "fade-mode":"cross" , "mode":"random" , "images_id":[1,2,3,4,5,6,7,8,9,10] , "sort":""},
+          {"in":40 , "out":75 , "fi":1 , "fo":1 , "fade-mode":"cross" , "mode":"zoom-in" , "images_id":[11,12,13,14,15,16,17,18,19,20] , "sort":"random"},
+          {"in":75 , "out":80 , "fi":3 , "fo":0 , "image_id":49},
+          {"in":80 , "out":95 , "fi":3 , "image_id":48},
+
+
+          {"in":0  , "out":5  , "fi":2 , "fo":2 , "mode":"" , "text_id":"txt-1"},
+          {"in":5  , "out":10 , "fi":2 , "fo":2 , "mode":"" , "text_id":"txt-2"},
+          {"in":10 , "out":50 , "mode":"scroll-down" , "text_id":"endroll2"},
+          {"in":50 , "out":95 , "mode":"scroll-up" , "text_id":"endroll"},
+
+          {"between":10 , "sound_file":"sounds/アコーディオンのかわいいジングル.mp3"},
+          {"between":10 , "sound_file":"sounds/Stage_1_-チュートリアル古都-.mp3"},
+          {"sound_file":"sounds/砂浜を駆ける青春を的なBGM.mp3"},
+        ]
+      });
+    </script>
+  </body>
+</html>
