@@ -36,18 +36,7 @@ History
   var slide_mov = $$slide_mov({
 
     // HTML内の各エレメント
-    target    : {
-      base    : "#movie_base",
-      time    : "#movie_time",
-      seek    : "#movie_seek",
-      volume  : "#movie_volume"
-    },
-
-    // コントロールボタンの画像（デフォルトの場合は割愛）
-    control_image : {
-      play    : "img/play.svg",
-      pause   : "img/pause.svg"
-    },
+    target    : "#slide_mov",
 
     // スライド動画のシステムチェック感覚（小さくすると精度があがるがCPU不可が高くなる）
     intervalTime : 250,
@@ -74,7 +63,13 @@ History
         "modes":"*modeがrandomの時のみ使用可能（配列でrandomリストを指定できる）"
         "image_id":"%表示対象の画像を指定",
         "images_id":"%表示対象画像を複数してい（配列）"
-        "sort":"*複数画像の表示順番 (sort:昇順 , reverse:降順 , random:ランダム)"
+        "sort":"*複数画像の表示順番 (sort:昇順 , reverse:降順 , random:ランダム)",
+        "image_files":[ // ファイルを直接指定す事も可能
+          "image/img-001.jpg",
+          "image/img-002.jpg",
+        ],
+        "text" : "テキストを直接書き込むことも可能",
+        "sound_file" : "data/sound.mp3" //音声ファイルを直接指定することも可能
       }
     ]
 	});
