@@ -2,7 +2,7 @@
 $$slide_mov = (function(){
 
   // デフォルトoptionsデータ
-  var OPTIONS = {
+  var __OPTIONS = {
 
     target : "#slide_mov",
 
@@ -141,13 +141,8 @@ $$slide_mov = (function(){
 
 
   // optionsの初期設定
-  LIB.prototype.getBuildOptions = function(options,options_default){
-    var newOptions = {};
-    if(options_default){
-      for(var i in options_default){
-        newOptions[i] = options_default[i];
-      }
-    }
+  LIB.prototype.getBuildOptions = function(options){
+    var newOptions = JSON.parse(JSON.stringify(__OPTIONS));
     if(options){
       for(var i in options){
         newOptions[i] = options[i];
@@ -165,9 +160,15 @@ $$slide_mov = (function(){
   };
 
   // 起動scriptタグを選択(async=trueのタグには適用できない) *ビルド時に文字列に変換（上書き）
-  LIB.prototype.script = (function(scripts){
+  LIB.prototype.script = (function(scripts,query){
+    if(query){
+      var elm = document.querySelector(query);
+      if(elm){
+        return elm;
+      }
+    }
     return scripts[scripts.length-1].src;
-  })(document.getElementsByTagName("script"));
+  })(document.getElementsByTagName("script") , "#slide_mov.js");
   
   // タイムラインの時間表示フォーマット
   // mode @ ["" , "micro-second"]
@@ -370,7 +371,7 @@ $$slide_mov = (function(){
     lib.setCss();
 
     // 格納用データの設置
-    main.options = lib.getBuildOptions(options,OPTIONS);
+    main.options = lib.getBuildOptions(options);
 
     // ページonloadでビルド作業実行
     lib.construct((function(e){this.init()}).bind(this));
@@ -434,6 +435,14 @@ $$slide_mov = (function(){
       new CONTROL().play_pause(main,"pause");
     }
     
+  };
+
+  MAIN.prototype.pause = function(main){
+    new CONTROL().play_pause(main,"pause");
+  };
+
+  MAIN.prototype.back = function(main){
+    new CONTROL().clickReturn(main,"pause");
   };
 
 
