@@ -1,15 +1,19 @@
 Slide-Mov.js
 ==
+
+![title-banner](docs/banner.png)
+
 ```
 Author : Yugeta.Koji
 Date   : 2019.10.09
-
-History
-  ver 1.0 : first-version
-  ver 1.1 : auto-image-file-lists
-  ver 1.2 : no-sound-movie
-  ver 2.0 : change-construct
 ```
+
+# History
+- ver 1.0 : first-version
+- ver 1.1 : auto-image-file-lists
+- ver 1.2 : no-sound-movie
+- ver 2.0 : change-construct
+
 
 # specificate
   - file-type 

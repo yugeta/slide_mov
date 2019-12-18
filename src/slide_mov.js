@@ -373,8 +373,18 @@ $$slide_mov = (function(){
     // 格納用データの設置
     main.options = lib.getBuildOptions(options);
 
+    // 既存の動画データが構築されている場合は、クリアする
+    main.startClear();
+
     // ページonloadでビルド作業実行
     lib.construct((function(e){this.init()}).bind(this));
+  };
+
+  MAIN.prototype.startClear = function(){
+    if(!this.options.target){return}
+    var elm = document.querySelector(this.options.target);
+    if(!elm){return}
+    elm.innerHTML = "";
   };
 
   // 初期設定 (after page onloaded)
