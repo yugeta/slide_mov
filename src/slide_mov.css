@@ -142,7 +142,7 @@
   display:block;
   height:60%;
   margin:10% auto;
-  background-image:url("./img/ctl_play.svg");
+  background-image:url("../img/ctl_play.svg");
   background-position:center center;
   background-repeat:no-repeat;
   background-size:contain;
@@ -153,7 +153,7 @@
   display:block;
   height:60%;
   margin:10% auto;
-  background-image:url("./img/ctl_pause.svg");
+  background-image:url("../img/ctl_pause.svg");
   background-position:center center;
   background-repeat:no-repeat;
   background-size:contain;
@@ -163,7 +163,7 @@
   display:block;
   height:60%;
   margin:10% auto;
-  background-image:url("./img/ctl_return.svg");
+  background-image:url("../img/ctl_return.svg");
   background-position:center center;
   background-repeat:no-repeat;
   background-size:contain;
@@ -173,7 +173,7 @@
   display:block;
   height:60%;
   margin:10% auto;
-  background-image:url("./img/ctl_speaker_3.svg");
+  background-image:url("../img/ctl_speaker_3.svg");
   background-position:center center;
   background-repeat:no-repeat;
   background-size:contain;
@@ -186,7 +186,7 @@
   display:block;
   height:60%;
   margin:10% auto;
-  background-image:url("./img/ctl_expand.svg");
+  background-image:url("../img/ctl_expand.svg");
   background-position:center center;
   background-repeat:no-repeat;
   background-size:contain;

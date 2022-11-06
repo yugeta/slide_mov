@@ -16,8 +16,6 @@ html,body{
 }
 
 #slide_mov{
-  /* border:1px solid black; */
-  /* margin:0 auto; */
   margin-left:10px;
   width:calc(100% - 8px);
   max-width:600px;
@@ -25,61 +23,9 @@ html,body{
   margin:4px auto;
 }
 
-/* #movieFrame{
-  margin:8px auto;
-} */
-
-  /* #slide_mov .area-image{
-    z-index: 110;
-    position: absolute;
-    width:100%;
-    background-color:transparent;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 6px black;
-    text-align:center;
-    font-weight:bold;
-
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  #slide_mov .area-text{
-    z-index: 110;
-    position: absolute;
-    width:100%;
-    background-color:transparent;
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 6px black;
-    text-align:center;
-    font-weight:bold;
-
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  } */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #materials{
   display:none;
 }
-
 
 #movie_base img.pics[data-before="anim-zi"],
 #movie_base img.pics[data-before="zoom-in"]{
@@ -181,7 +127,7 @@ html,body{
   margin-left:40px;
 }
 #movie_base .good-image{
-  content:url("../img/movie/heart-on.svg");
+  /* content:url("../img/movie/heart-on.svg"); */
   width:40px;
   vertical-align: middle;
   margin-left:8px;
@@ -191,7 +137,7 @@ html,body{
   margin-left:8px;
 }
 #movie_base .good-rank-1{
-  content:url("../img/movie/king_gold.svg");
+  /* content:url("../img/movie/king_gold.svg"); */
   width:40px;
   vertical-align: middle;
   margin-left:8px;
@@ -200,9 +146,6 @@ html,body{
 #fullscreen{
   font-size:14px;
 }
-
-
-
 
 .movie_control{
   margin-left:10px;
@@ -246,7 +189,7 @@ html,body{
     background-position:center;
   }
   #movie_play{
-    background-image : url("./icon/play.svg");
+    background-image : url("../../img/play.svg");
   }
   #movie_play[data-play="0"]{
     display:none;
@@ -255,7 +198,7 @@ html,body{
     display:inline-block;
   }
   #movie_pause{
-    background-image : url("./icon/pause.svg");
+    background-image : url("../../img/pause.svg");
   }
   #movie_pause[data-pause="0"]{
     display:none;
@@ -264,10 +207,10 @@ html,body{
     display:inline-block;
   }
   #movie_return{
-    background-image : url("./icon/return.svg");
+    background-image : url("../../img/return.svg");
   }
   #movie_expand{
-    background-image : url("./icon/expand.svg");
+    background-image : url("../../img/expand.svg");
   }
   /* #movie_volume{
     background-image : url("sample/icon/volume-0.svg");
@@ -285,10 +228,10 @@ html,body{
     background-image : url("sample/icon/volume-off.svg");
   } */
   #movie_mute{
-    background-image : url("./icon/volume-0.svg");
+    background-image : url("../../img/volume-0.svg");
   }
   #movie_mute[data-mute="1"]{
-    background-image : url("./icon/volume-off.svg");
+    background-image : url("../../img/volume-off.svg");
   }
 
 
